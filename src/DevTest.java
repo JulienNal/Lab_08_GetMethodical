@@ -31,6 +31,12 @@ public class DevTest
         price = SafeInput.getRangedDouble(in, "Enter the price of the item between 0.01 and 10.00: ", 0.01, 10.00);
         System.out.println("The price of the item is: " + price);
 
+        boolean confirm = getYNConfirm(in, "Do you want to continue?");
+        System.out.println("User confirmation: " + confirm);
+
+        confirm = SafeInput.getYNConfirm(in, "Do you want to continue?");
+        System.out.println("User confirmation: " + confirm);
+
     }
     // Method definitions go here
 
@@ -194,6 +200,41 @@ public class DevTest
             {
                 trash = pipe.nextLine();
                 System.out.println("Input is invalid: " + trash + ". Please enter a valid number.");
+            }
+        } while (!done);
+
+        return retVal;
+    }
+
+    /**
+     * get a yes/no confirmation from the user
+     * @param pipe - scanner to use for input
+     * @param prompt - prompt to display to the user
+     * @return - true if user entered Y/y, false if N/n
+     */
+
+    public static boolean getYNConfirm(Scanner pipe, String prompt)
+    {
+        String response = "";
+        boolean retVal = false;
+        boolean done = false;
+
+        do {
+            System.out.print(prompt + " (Y/N): ");
+            response = pipe.nextLine().trim();
+            if (response.equalsIgnoreCase("Y"))
+            {
+                retVal = true;
+                done = true;
+            }
+            else if (response.equalsIgnoreCase("N"))
+            {
+                retVal = false;
+                done = true;
+            }
+            else
+            {
+                System.out.println("Invalid input: " + response + ". Please enter Y or N.");
             }
         } while (!done);
 
