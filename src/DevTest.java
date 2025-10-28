@@ -37,6 +37,12 @@ public class DevTest
         confirm = SafeInput.getYNConfirm(in, "Do you want to continue?");
         System.out.println("User confirmation: " + confirm);
 
+        String email = getRegExString(in, "Enter your email address", "^[\\w.]+@[\\w.]+$");
+        System.out.println("Your email address is: " + email);
+
+        email = SafeInput.getRegExString(in, "Enter your email address", "^[\\w.]+@[\\w.]+$");
+        System.out.println("Your email address is: " + email);
+
     }
     // Method definitions go here
 
@@ -239,6 +245,32 @@ public class DevTest
         } while (!done);
 
         return retVal;
+    }
+
+    /**
+     * get a string that matches the provided regular expression
+     * @param pipe - scanner to use for input
+     * @param prompt - prompt to display to the user
+     * @param regEx - regular expression the input must match
+     * @return - a string that matches the provided regular expression
+     */
+
+    public static String getRegExString(Scanner pipe, String prompt, String regEx) {
+        String retString = "";
+        boolean done = false;
+
+        do {
+            System.out.print(prompt + "[" + regEx + "]: ");
+            retString = pipe.nextLine();
+            if (retString.matches(regEx)) {
+                done = true;
+            } else {
+                System.out.println("Input does not match the required format: " + regEx + "Please try again.");
+            }
+        } while (!done);
+
+        return retString;
+
     }
 
 }

@@ -9,23 +9,19 @@ public class SafeInput
      * @param prompt -Propmt to display to the user (e.g. "Enter your name: ")
      * @return - a non-empty String
      */
-
-
     public static String getNonZeroLenString(Scanner pipe, String prompt)
     {
         String retString = "";
         do {
             System.out.print(prompt);
-            retString = pipe.nextLine();
-            if (!retString.isEmpty())
+            retString = pipe.nextLine().trim();
+            if (retString.isEmpty())
             {
-            } else {
                 System.out.println("Input must be at least one character long. Please try again.");
             }
         } while (retString.isEmpty());
 
         return retString;
-
     }
 
     /**
@@ -34,11 +30,10 @@ public class SafeInput
      * @param prompt - prompt to display to the user (e.g. "Enter your age: ")
      * @return - an integer
      */
-
     public static int getInt(Scanner pipe, String prompt)
     {
         int retInt = 0;
-        String trash = "";
+        String trash;
         boolean done = false;
 
         do {
@@ -65,11 +60,10 @@ public class SafeInput
      * @param prompt - prompt to display to the user (e.g. "Enter your age: ")
      * @return - a double
      */
-
     public static double getDouble(Scanner pipe, String prompt)
     {
         double retVal = 0;
-        String trash = "";
+        String trash;
         boolean done = false;
 
         do {
@@ -98,11 +92,10 @@ public class SafeInput
      * @param high - highest acceptable value
      * @return - an integer within the specified range
      */
-
     public static int getRangedInt(Scanner pipe, String prompt, int low, int high)
     {
         int retVal = 0;
-        String trash = "";
+        String trash;
         boolean done = false;
 
         do {
@@ -135,13 +128,12 @@ public class SafeInput
      * @param prompt - prompt to display to the user to indicate what to enter
      * @param low - lowest acceptable value
      * @param high - highest acceptable value
-     * @return - an integer within the specified range
+     * @return - a double within the specified range
      */
-
     public static double getRangedDouble(Scanner pipe, String prompt, double low, double high)
     {
         double retVal = 0;
-        String trash = "";
+        String trash;
         boolean done = false;
 
         do {
@@ -174,10 +166,9 @@ public class SafeInput
      * @param prompt - prompt to display to the user
      * @return - true if user entered Y/y, false if N/n
      */
-
     public static boolean getYNConfirm(Scanner pipe, String prompt)
     {
-        String response = "";
+        String response;
         boolean retVal = false;
         boolean done = false;
 
@@ -203,6 +194,28 @@ public class SafeInput
         return retVal;
     }
 
+    /**
+     * get a string that matches the provided regular expression
+     * @param pipe - scanner to use for input
+     * @param prompt - prompt to display to the user
+     * @param regEx - regular expression the input must match
+     * @return - a string that matches the provided regular expression
+     */
+    public static String getRegExString(Scanner pipe, String prompt, String regEx) {
+        String retString = "";
+        boolean done = false;
 
+        do {
+            System.out.print(prompt + " [" + regEx + "]: ");
+            retString = pipe.nextLine().trim();
+            if (retString.matches(regEx)) {
+                done = true;
+            } else {
+                System.out.println("Input does not match the required format: " + regEx + ". Please try again.");
+            }
+        } while (!done);
+
+        return retString;
+    }
 
 }
